@@ -1,0 +1,38 @@
+name: MLflow CI - Telco Churn
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  retrain-model:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.12.7
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.7"
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-activate-base: false
+          python-version: "3.12.7"
+
+      - name: Install MLflow
+        shell: bash -l {0}
+        run: pip install mlflow
+
+      - name: Run MLflow Project from Root
+        shell: bash -l {0}
+        run: mlflow run ./MLProject
+
+      - name: Get latest MLflow run_id
+        run: |
+          RUN_ID=$(mlflow runs list --order-by start_time desc --max-results 1 | awk 'NR==2 {print $1}')
+          echo "Latest MLflow run_id: $RUN_ID"
