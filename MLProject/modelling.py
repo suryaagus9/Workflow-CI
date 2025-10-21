@@ -27,12 +27,13 @@ X_train, X_test, y_train, y_test = train_test_split(
 print("Data berhasil dibagi menjadi data latih dan uji.")
 
 # --- Autologging MLflow ---
-# Mengaktifkan autologging untuk library Scikit-learn.
-mlflow.sklearn.autolog()
+with mlflow.start_run():
+    # Mengaktifkan autologging untuk library Scikit-learn di dalam run.
+    mlflow.sklearn.autolog()
 
-# Inisialisasi dan latih model
-model = LogisticRegression(max_iter=1000)
-model.fit(X_train, y_train)
-print("Model berhasil dilatih.")
+    # Inisialisasi dan latih model
+    model = LogisticRegression(max_iter=1000)
+    model.fit(X_train, y_train)
+    print("Model berhasil dilatih.")
 
-print(f"\nTraining selesai. Semua metrik dan artefak telah dicatat secara otomatis oleh autolog.")
+    print(f"\nTraining selesai. Semua metrik dan artefak telah dicatat secara otomatis oleh autolog.")
