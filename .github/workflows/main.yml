@@ -24,12 +24,6 @@ jobs:
         with:
           python-version: "3.9"
 
-      # - name: Set up Miniconda
-      #   uses: conda-incubator/setup-miniconda@v2
-      #   with:
-      #     auto-activate-base: false
-      #     python-version: "3.9"
-
       - name: Setup Miniconda
         uses: conda-incubator/setup-miniconda@v3
         with:
@@ -41,10 +35,6 @@ jobs:
       - name: Install MLflow
         shell: bash -l {0}
         run: pip install mlflow
-
-      # - name: Run MLflow Project 
-      #   shell: bash -l {0}
-      #   run: mlflow run ./MLProject
 
       - name: Run MLflow Project
         shell: bash -l {0}
