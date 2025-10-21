@@ -35,5 +35,8 @@ with mlflow.start_run():
     model = LogisticRegression(max_iter=1000)
     model.fit(X_train, y_train)
     print("Model berhasil dilatih.")
+    
+    mlflow.sklearn.log_model(sk_model=model, artifact_path="model")
+    print("Model secara eksplisit dicatat ke path artefak 'model'.")
 
     print(f"\nTraining selesai. Semua metrik dan artefak telah dicatat secara otomatis oleh autolog.")
